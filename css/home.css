@@ -130,9 +130,9 @@ html.claro .hero-luz { background: radial-gradient(circle, rgba(46, 125, 50, 0.1
     height: 22%;
     border-radius: 2px;
     background: linear-gradient(180deg,
-        rgba(255, 255, 255, 0.22) 0 40%,
+        var(--botao-moldura) 0 40%,
         transparent 40% 54%,
-        rgba(255, 255, 255, 0.22) 54% 100%);
+        var(--botao-moldura) 54% 100%);
 }
 
 /* Sem ilha/notch por cima: ela cobria o topo da captura. */

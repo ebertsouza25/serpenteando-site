@@ -56,6 +56,9 @@
     --texto-fraco: #9E9E96;     /* Mist Text */
 
     --vidro: rgba(11, 18, 16, 0.82);
+
+    /* Barra dos botões laterais do mockup de celular (tema escuro) */
+    --botao-moldura: rgba(255, 255, 255, 0.30);
     --tipografia-escama: rgba(255, 255, 255, 0.022);
     --sombra-celular:
         0 40px 80px rgba(0, 0, 0, 0.6),
@@ -95,6 +98,10 @@ html.claro {
     --texto-fraco: #5C6058;
 
     --vidro: rgba(242, 240, 233, 0.86);
+
+    /* No tema claro a moldura continua escura, então a barra precisa ser mais
+       clara para os botões laterais não sumirem no fundo claro. */
+    --botao-moldura: rgba(255, 255, 255, 0.66);
     --tipografia-escama: rgba(28, 28, 30, 0.035);
     --sombra-celular:
         0 26px 60px rgba(38, 34, 24, 0.22),
