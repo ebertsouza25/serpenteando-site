@@ -1,0 +1,529 @@
+/* =========================================================
+   base.css — cores, temas (escuro/claro), fontes, cabeçalho,
+   botões, divisoras e rodapé.
+   Paleta tirada do DESIGN.md do app: Forest Night + Jade Glow.
+   ========================================================= */
+
+@font-face {
+    font-family: "Inter";
+    src: url("../font/inter_regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Inter";
+    src: url("../font/inter_medium.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Inter";
+    src: url("../font/inter_semibold.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Inter";
+    src: url("../font/inter_bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ---------- Tema escuro (padrão, o mesmo do app) ---------- */
+
+:root {
+    --fundo: #0B1210;           /* Forest Night */
+    --fundo-2: #101A15;         /* uma seção acima do fundo */
+    --fundo-3: #0D1613;         /* seção alternativa */
+    --superficie: #141E18;      /* Moss Surface */
+    --superficie-2: #1A2A1F;    /* Deep Container */
+    --superficie-3: #243329;    /* Lifted Moss */
+
+    --borda: #2E3A30;           /* Lichen Border */
+    --borda-suave: rgba(46, 58, 48, 0.55);
+    --borda-jade: rgba(76, 175, 80, 0.38);
+
+    --jade: #4CAF50;            /* Jade Glow — acento único */
+    --jade-neon: #00E676;
+    --ouro: #C4A84D;            /* Caatinga Gold */
+    --texto-no-jade: #08120B;
+
+    --texto: #F5F5F0;           /* Cloud Text */
+    --texto-fraco: #9E9E96;     /* Mist Text */
+
+    --vidro: rgba(11, 18, 16, 0.82);
+    --tipografia-escama: rgba(255, 255, 255, 0.022);
+    --sombra-celular:
+        0 40px 80px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(76, 175, 80, 0.18),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    --sombra-cartao: 0 20px 44px rgba(0, 0, 0, 0.35);
+    --sombra-suave: 0 14px 34px rgba(0, 0, 0, 0.28);
+
+    /* Medidas */
+    --largura: 1160px;
+    --raio: 16px;
+    --raio-grande: 24px;
+    --transicao: 220ms ease;
+    --curva: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* ---------- Tema claro (o mesmo "mode_light" do app) ---------- */
+
+html.claro {
+    --fundo: #F2F0E9;
+    --fundo-2: #EAE6DC;
+    --fundo-3: #F7F5EE;
+    --superficie: #FBFAF4;
+    --superficie-2: #F0EDE3;
+    --superficie-3: #E4E0D4;
+
+    --borda: #D6D1C4;
+    --borda-suave: rgba(184, 178, 162, 0.55);
+    --borda-jade: rgba(46, 125, 50, 0.38);
+
+    --jade: #2E7D32;            /* Moss Deep Light */
+    --jade-neon: #1B5E20;
+    --ouro: #96771F;
+    --texto-no-jade: #F7F6F0;
+
+    --texto: #1C1C1E;           /* Forest Ink */
+    --texto-fraco: #5C6058;
+
+    --vidro: rgba(242, 240, 233, 0.86);
+    --tipografia-escama: rgba(28, 28, 30, 0.035);
+    --sombra-celular:
+        0 26px 60px rgba(38, 34, 24, 0.22),
+        0 0 0 1px rgba(46, 125, 50, 0.16),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+    --sombra-cartao: 0 16px 38px rgba(38, 34, 24, 0.10);
+    --sombra-suave: 0 10px 26px rgba(38, 34, 24, 0.08);
+}
+
+* { box-sizing: border-box; }
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+}
+
+body {
+    margin: 0;
+    background-color: var(--fundo);
+    color: var(--texto);
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    transition: background-color 300ms ease, color 300ms ease;
+}
+
+/* Textura de escamas, bem discreta, atrás de tudo */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-image:
+        radial-gradient(circle at 20% 8%, rgba(76, 175, 80, 0.10), transparent 45%),
+        radial-gradient(circle at 88% 0%, rgba(196, 168, 77, 0.06), transparent 40%),
+        repeating-radial-gradient(circle at 0 0, var(--tipografia-escama) 0 1px, transparent 1px 14px);
+    pointer-events: none;
+}
+
+html.claro body::before {
+    background-image:
+        radial-gradient(circle at 18% 6%, rgba(46, 125, 50, 0.10), transparent 46%),
+        radial-gradient(circle at 90% 2%, rgba(150, 119, 31, 0.08), transparent 42%),
+        repeating-radial-gradient(circle at 0 0, var(--tipografia-escama) 0 1px, transparent 1px 14px);
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: var(--jade); text-decoration: none; }
+a:hover { color: var(--jade-neon); }
+
+h1, h2, h3, h4 {
+    margin: 0 0 14px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    color: var(--texto);
+}
+
+h1 { font-size: clamp(2rem, 4.4vw, 3.4rem); }
+h2 { font-size: clamp(1.7rem, 3vw, 2.5rem); }
+h3 { font-size: 1.15rem; font-weight: 600; letter-spacing: -0.01em; }
+
+p { margin: 0 0 16px; color: var(--texto-fraco); }
+
+.container {
+    width: 100%;
+    max-width: var(--largura);
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ---------- Cabeçalho ---------- */
+
+.topo {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--vidro);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--borda-suave);
+    transition: background-color 300ms ease, border-color 300ms ease;
+}
+
+.topo-linha {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    height: 72px;
+}
+
+.marca {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--texto);
+    font-weight: 700;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.marca-logo {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+}
+
+.marca-nome { letter-spacing: -0.02em; }
+
+.menu {
+    display: flex;
+    gap: 24px;
+    margin-left: auto;
+}
+
+.menu a {
+    color: var(--texto-fraco);
+    font-size: 0.95rem;
+    font-weight: 500;
+    white-space: nowrap;
+    padding: 6px 0;
+    border-bottom: 2px solid transparent;
+    transition: color var(--transicao), border-color var(--transicao);
+}
+
+.menu a:hover,
+.menu a.ativo {
+    color: var(--texto);
+    border-bottom-color: var(--jade);
+}
+
+.topo-acoes {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.idioma {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--texto-fraco);
+    border: 1px solid var(--borda);
+    border-radius: 999px;
+    padding: 4px 10px 4px 8px;
+    transition: border-color var(--transicao);
+}
+
+.idioma:hover { border-color: var(--jade); }
+.idioma-icone { display: flex; }
+
+.idioma select {
+    background: transparent;
+    border: 0;
+    color: var(--texto);
+    font-family: inherit;
+    font-size: 0.85rem;
+    padding: 2px 0;
+    cursor: pointer;
+    outline: none;
+}
+
+.idioma select option { background: var(--superficie); color: var(--texto); }
+
+/* Botão de tema: mostra o sol no escuro e a lua no claro */
+.tema-botao {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border-radius: 50%;
+    border: 1px solid var(--borda);
+    background: transparent;
+    color: var(--texto);
+    cursor: pointer;
+    transition: border-color var(--transicao), background-color var(--transicao);
+}
+
+.tema-botao:hover {
+    border-color: var(--jade);
+    background: rgba(76, 175, 80, 0.12);
+}
+
+.tema-icone {
+    position: absolute;
+    transition: opacity 240ms var(--curva), transform 320ms var(--curva);
+}
+
+.tema-icone-lua { opacity: 0; transform: rotate(-40deg) scale(0.7); }
+html.claro .tema-icone-sol { opacity: 0; transform: rotate(40deg) scale(0.7); }
+html.claro .tema-icone-lua { opacity: 1; transform: none; }
+
+.menu-botao {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 42px;
+    height: 42px;
+    padding: 0 10px;
+    background: transparent;
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.menu-botao span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: var(--texto);
+    border-radius: 2px;
+    transition: transform var(--transicao), opacity var(--transicao);
+}
+
+/* ---------- Botões ---------- */
+
+.botao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 13px 26px;
+    white-space: nowrap;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.98rem;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform var(--transicao), background-color var(--transicao), border-color var(--transicao);
+}
+
+.botao:active { transform: translateY(-1px); }
+
+.botao-principal {
+    background: var(--jade);
+    color: var(--texto-no-jade);
+}
+
+.botao-principal:hover {
+    background: var(--jade-neon);
+    color: var(--texto-no-jade);
+}
+
+.botao-contorno {
+    border-color: var(--borda-jade);
+    color: var(--texto);
+    background: transparent;
+}
+
+.botao-contorno:hover {
+    border-color: var(--jade);
+    background: rgba(76, 175, 80, 0.10);
+    color: var(--texto);
+}
+
+.botao-topo { padding: 10px 20px; font-size: 0.9rem; }
+.botao-largo { width: 100%; }
+
+/* ---------- Estrutura das seções ---------- */
+
+.secao {
+    position: relative;
+    padding: 96px 0;
+}
+
+/* Cada seção tem o seu fundo, pra separar um assunto do outro */
+.secao-app {
+    background: linear-gradient(180deg, var(--fundo-2), var(--fundo) 78%);
+}
+
+.secao-sobre {
+    background:
+        linear-gradient(180deg, rgba(76, 175, 80, 0.05), transparent 40%),
+        var(--fundo-3);
+}
+
+.secao-recursos {
+    background:
+        radial-gradient(circle at 12% 0%, rgba(76, 175, 80, 0.08), transparent 42%),
+        var(--fundo-2);
+}
+
+.secao-video {
+    background: linear-gradient(180deg, var(--fundo), var(--fundo-3) 50%, var(--fundo));
+}
+
+.secao-download {
+    background:
+        radial-gradient(circle at 78% 12%, rgba(76, 175, 80, 0.12), transparent 52%),
+        var(--fundo);
+}
+
+.secao-equipe {
+    background:
+        radial-gradient(circle at 85% 8%, rgba(196, 168, 77, 0.10), transparent 46%),
+        var(--fundo-2);
+}
+
+/* Divisa entre as seções: linha + losango no meio */
+.divisa {
+    position: relative;
+    display: grid;
+    place-items: center;
+    height: 68px;
+    background: transparent;
+}
+
+.divisa::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: min(100% - 48px, var(--largura));
+    height: 1px;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(90deg, transparent, var(--borda), transparent);
+}
+
+.divisa::after {
+    content: "";
+    width: 9px;
+    height: 9px;
+    transform: rotate(45deg);
+    background: var(--fundo);
+    border: 1px solid var(--borda-jade);
+    border-radius: 2px;
+}
+
+.secao-topo {
+    max-width: 640px;
+    margin-bottom: 48px;
+}
+
+.rotulo {
+    display: inline-block;
+    margin: 0 0 12px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--jade);
+}
+
+.secao-descricao { margin: 0; }
+
+/* ---------- Rodapé ---------- */
+
+.rodape {
+    padding: 56px 0 28px;
+    border-top: 1px solid var(--borda);
+    background: var(--fundo-2);
+}
+
+.rodape-grade {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 36px;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.rodape-marca {
+    display: flex;
+    gap: 14px;
+    max-width: 420px;
+}
+
+.rodape-logo {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.rodape-marca strong { font-size: 1.05rem; }
+.rodape-marca p { margin: 6px 0 0; font-size: 0.9rem; line-height: 1.55; }
+
+.rodape-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 24px;
+}
+
+.rodape-links a {
+    color: var(--texto-fraco);
+    font-size: 0.92rem;
+}
+
+.rodape-links a:hover { color: var(--texto); }
+
+.rodape-fim {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    justify-content: space-between;
+    margin-top: 36px;
+    padding-top: 20px;
+    border-top: 1px solid var(--borda-suave);
+}
+
+.rodape-fim p {
+    margin: 0;
+    font-size: 0.82rem;
+    color: var(--texto-fraco);
+}
+
+/* ---------- Foco visível para teclado ---------- */
+
+a:focus-visible,
+button:focus-visible,
+select:focus-visible {
+    outline: 2px solid var(--jade);
+    outline-offset: 3px;
+    border-radius: 6px;
+}
+
+/* A animação de entrada fica só no topo (.entra). O resto da página
+   aparece direto: nada de esconder conteúdo esperando o scroll. */
+
+/* ---------- Respeita quem desativa animações ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation: none !important; transition: none !important; }
+}
